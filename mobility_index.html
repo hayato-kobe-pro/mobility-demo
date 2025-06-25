@@ -1,0 +1,157 @@
+<!-- Toyota イベント一覧コンポーネント -->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TOYOTA イベント一覧</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { background-color: #fff; font-family: Arial, sans-serif; margin: 0; padding: 30px 20px 0; color: #333; }
+    .event-list-container { max-width: 1200px; margin: 0 auto; }
+    .controls { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; align-items: center; }
+
+    /* 検索バー */
+    .search-wrapper { flex: 1; min-width: 0; position: relative; }
+    .search-wrapper svg { position: absolute; top: 50%; left: 12px; transform: translateY(-50%); width: 20px; height: 20px; fill: #888; }
+    .search-bar { width: 100%; padding: 8px 12px 8px 40px; border: 1px solid #ccc; border-radius: 999px; background-color: #fafafa; font-size: 0.95rem; color: #333; }
+
+    /* カテゴリタグ */
+    .category-tags { display: flex; flex-wrap: wrap; gap: 8px; flex: 2; min-width: 0; }
+    .category-tags label { display: inline-flex; align-items: center; padding: 6px 12px; border: 1px solid #ccc; border-radius: 999px; background-color: #fff; cursor: pointer; font-size: 0.9rem; user-select: none; }
+    .category-tags input[type="checkbox"] { display: none; }
+    .category-tags input[type="checkbox"]:checked + label { background-color: #e3f2fd; border-color: #64b5f6; }
+
+    /* 並び替え */
+    .sort-filter { padding: 8px 12px; border: 1px solid #ccc; border-radius: 4px; min-width: 180px; background-color: #fafafa; font-size: 0.95rem; }
+
+    /* イベントリスト */
+    .event-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr; gap: 20px; }
+    .event-list li { margin: 0; padding: 0; }
+    .event-item {
+      display: flex;
+      align-items: center;
+      width: 100%;        /* クリック範囲を全幅に */
+      background-color: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;     /* 全体をクリック可能に */
+    }
+    .thumbnail { width: 120px; height: 120px; object-fit: cover; flex-shrink: 0; }
+    .event-info { padding: 12px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+    .event-title { font-size: 1.1rem; margin: 0 0 8px; }
+    .event-desc { font-size: 0.95rem; margin: 0 0 12px; color: #555; line-height: 1.4; }
+    .wait-time { font-size: 0.9rem; font-weight: bold; color: #1976d2; border: 1px solid #1976d2; padding: 4px 8px; border-radius: 4px; background-color: #e3f2fd; text-align: center; }
+
+    /* モバイル対応 */
+    @media (max-width: 600px) {
+      .controls { flex-direction: column; align-items: stretch; }
+      .search-wrapper, .category-tags, .sort-filter { width: 100%; }
+      .thumbnail { width: 100px; height: 100px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="event-list-container">
+    <div class="controls">
+      <div class="search-wrapper">
+        <svg viewBox="0 0 24 24"><path d="M15.5 14h-..."/></svg>
+        <input type="text" class="search-bar" placeholder="検索する">
+      </div>
+      <div class="category-tags">
+        <input type="checkbox" id="cat-sdgs" data-cat="sdgs"><label for="cat-sdgs"># SDGs</label>
+        <input type="checkbox" id="cat-autonomous" data-cat="autonomous"><label for="cat-autonomous"># 自動運転</label>
+        <input type="checkbox" id="cat-ev" data-cat="ev"><label for="cat-ev"># 次世代モビリティ</label>
+        <input type="checkbox" id="cat-workcar" data-cat="workcar"><label for="cat-workcar"># はたらくクルマ</label>
+        <input type="checkbox" id="cat-entertainment" data-cat="entertainment"><label for="cat-entertainment"># エンタテイメント</label>
+        <input type="checkbox" id="cat-people" data-cat="people"><label for="cat-people"># 人物・物流・商用</label>
+      </div>
+      <select class="sort-filter">
+        <option value="">並び替え</option>
+        <option value="wait-asc">待ち時間が短い順</option>
+        <option value="wait-desc">待ち時間が長い順</option>
+      </select>
+    </div>
+
+    <ul class="event-list">
+      <!-- 動的データ例（hrefは各自指定してください） -->
+      <li>
+        <a href="https://toyota-rx.eventos.tokyo/uri/booth/1009/14123/361705/318353/" class="event-item" data-cat="autonomous">
+          <img src="car.png" alt="自動運転デモ走行" class="thumbnail">
+          <div class="event-info">
+            <h3 class="event-title">自動運転デモ走行</h3>
+            <p class="event-desc">最新の自動運転技術を体験いただけるデモ走行です。</p>
+            <span class="wait-time">待ち時間: 15分</span>
+          </div>
+        </a>
+      </li>
+      <li>
+        <a href="https://toyota-rx.eventos.tokyo/uri/booth/1009/14123/361705/318353/" class="event-item" data-cat="ev">
+          <img src="ev.png" alt="EV試乗会" class="thumbnail">
+          <div class="event-info">
+            <h3 class="event-title">EV試乗会</h3>
+            <p class="event-desc">電気自動車の静粛性と加速を実感できる試乗体験。</p>
+            <span class="wait-time">待ち時間: 10分</span>
+          </div>
+        </a>
+      </li>
+      <li>
+        <a href="https://toyota-rx.eventos.tokyo/uri/booth/1009/14123/361705/318353/" class="event-item" data-cat="mobility">
+          <img src="next.png" alt="次世代モビリティ体験" class="thumbnail">
+          <div class="event-info">
+            <h3 class="event-title">次世代モビリティ体験</h3>
+            <p class="event-desc">パーソナルモビリティの乗り心地を試せる展示コーナー。</p>
+            <span class="wait-time">待ち時間: 5分</span>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const searchInput = document.querySelector('.search-bar');
+      const categoryChecks = document.querySelectorAll('.category-tags input[type="checkbox"]');
+      const sortSelect = document.querySelector('.sort-filter');
+      const list = document.querySelector('.event-list');
+      
+      function filterAndSort() {
+        const keyword = searchInput.value.trim().toLowerCase();
+        const selectedCats = Array.from(categoryChecks)
+          .filter(ch => ch.checked)
+          .map(ch => ch.dataset.cat);
+        let items = Array.from(document.querySelectorAll('.event-item'));
+
+        // フィルタ
+        items.forEach(item => {
+          const title = item.querySelector('.event-title').textContent.toLowerCase();
+          const desc = item.querySelector('.event-desc').textContent.toLowerCase();
+          const cats = item.dataset.cat.split(',');
+          const matchesKeyword = title.includes(keyword) || desc.includes(keyword);
+          const matchesCat = selectedCats.length === 0 || selectedCats.some(c => cats.includes(c));
+          item.parentElement.style.display = (matchesKeyword && matchesCat) ? '' : 'none';
+        });
+
+        // ソート
+        const visibleLi = Array.from(list.children).filter(li => li.style.display !== 'none');
+        visibleLi.sort((a, b) => {
+          const waitA = parseInt(a.querySelector('.wait-time').textContent);
+          const waitB = parseInt(b.querySelector('.wait-time').textContent);
+          if (sortSelect.value === 'wait-asc') return waitA - waitB;
+          if (sortSelect.value === 'wait-desc') return waitB - waitA;
+          return 0;
+        });
+        visibleLi.forEach(li => list.appendChild(li));
+      }
+
+      searchInput.addEventListener('input', filterAndSort);
+      categoryChecks.forEach(ch => ch.addEventListener('change', filterAndSort));
+      sortSelect.addEventListener('change', filterAndSort);
+    });
+  </script>
+</body>
+</html>

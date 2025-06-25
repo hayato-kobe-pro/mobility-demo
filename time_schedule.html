@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>タイムテーブル</title>
+  <style>
+    body { font-family: sans-serif; margin: 0; padding: 0; }
+    .date-nav { display: flex; overflow-x: auto; padding: 8px; background: #fff; border-bottom: 1px solid #ddd; }
+    .date-nav button { flex: 0 0 auto; margin-right: 8px; padding: 6px 12px; border: 1px solid #bbb; background: #f9f9f9; border-radius: 4px; cursor: pointer; }
+    .date-nav button.active { background: #333; color: #fff; border-color: #333; }
+
+    .timetable { display: grid; grid-template-columns: 60px 1fr 1fr; }
+    .time-col { background: #fafafa; }
+    .time-col div { height: 64px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #666; border-bottom: 1px solid #eee; }
+    .stage-col { position: relative; padding-top: 24px; }
+    .stage-col h3 { position: absolute; top: 0; left: 50%; transform: translateX(-50%); margin: 0; padding: 4px 8px; font-size: 14px; }
+    .stage-east h3 { color: #d32f2f; }
+    .stage-west h3 { color: #1976d2; }
+
+    .session {
+      position: absolute;
+      left: 4px; right: 4px;
+      padding: 8px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      font-size: 13px;
+      background: #fff;
+    }
+    .cat-未来 { border-top: 4px solid #d32f2f; }
+    .cat-Mobility { border-top: 4px solid #1976d2; }
+    .cat-Start-up { border-top: 4px solid #c2185b; }
+    .cat-スポンサー { border-top: 4px solid #388e3c; }
+    .session .title { margin: 4px 0; line-height: 1.2; }
+    .session .star { position: absolute; bottom: 4px; right: 6px; font-size: 14px; color: gold; }
+  </style>
+</head>
+<body>
+  <div class="date-nav">
+    <button class="active">10/30 (木)</button>
+    <button>10/31 (金)</button>
+    <button>11/1 (土)</button>
+    <button>11/2 (日)</button>
+    <button>11/3 (月)</button>
+  </div>
+
+  <div class="timetable">
+    <!-- 時間軸 -->
+    <div class="time-col">
+      <!-- 8:00 to 20:00 -->
+      <div>8:00</div>
+      <div>9:00</div>
+      <div>10:00</div>
+      <div>11:00</div>
+      <div>12:00</div>
+      <div>13:00</div>
+      <div>14:00</div>
+      <div>15:00</div>
+      <div>16:00</div>
+      <div>17:00</div>
+      <div>18:00</div>
+      <div>19:00</div>
+      <div>20:00</div>
+    </div>
+
+    <!-- 東ステージ -->
+    <div class="stage-col stage-east">
+      <h3>東ステージ</h3>
+      <!-- 9:00-10:00 -->
+      <div class="session cat-未来" style="top:64px; height:64px;">
+        <div class="category">未来モビリティ会議</div>
+        <div class="title">Japan Mobility Show 2025 公式イベント</div>
+        <div class="star">★</div>
+      </div>
+      <!-- 11:00-12:00 -->
+      <div class="session cat-Start-up" style="top:192px; height:64px;">
+        <div class="category">Start-up Future Factory 2035</div>
+        <div class="title">Japan Mobility Show 2025 公式イベント</div>
+        <div class="star">★</div>
+      </div>
+      <!-- 13:00-14:00 -->
+      <div class="session cat-スポンサー" style="top:320px; height:64px;">
+        <div class="category">スポンサー</div>
+        <div class="title">Japan Mobility Show 2025 公式イベント</div>
+      </div>
+      <!-- 15:00-16:00 -->
+      <div class="session cat-スポンサー" style="top:448px; height:64px;">
+        <div class="category">スポンサー</div>
+        <div class="title">Japan Mobility Show 公式イベント</div>
+        <div class="star">★</div>
+      </div>
+      <!-- 16:00-18:00 -->
+      <div class="session cat-Start-up" style="top:512px; height:128px;">
+        <div class="category">Start-up Future Factory 2035</div>
+        <div class="title">Japan Mobility Show 2025 公式イベント</div>
+        <div class="star">★</div>
+      </div>
+    </div>
+
+    <!-- 西ステージ -->
+    <div class="stage-col stage-west">
+      <h3>西ステージ</h3>
+      <!-- 10:00-11:00 -->
+      <div class="session cat-Mobility" style="top:128px; height:64px;">
+        <div class="category">Mobility Culture</div>
+        <div class="title">Japan Mobility Show 2025 公式イベント</div>
+        <div class="star">★</div>
+      </div>
+      <!-- 12:00-13:00 -->
+      <div class="session cat-Mobility" style="top:256px; height:64px;">
+        <div class="category">Mobility Culture</div>
+        <div class="title">Japan Mobility Show 2025 公式イベント</div>
+        <div class="star">☆</div>
+      </div>
+      <!-- 14:00-17:00 -->
+      <div class="session cat-Mobility" style="top:384px; height:192px;">
+        <div class="category">Mobility Culture</div>
+        <div class="title">Japan Mobility Show 2025 公式イベント</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

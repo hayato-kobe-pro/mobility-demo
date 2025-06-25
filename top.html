@@ -1,0 +1,74 @@
+<meta charset="UTF-8" />&nbsp;<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+/>
+<title>Button Grid</title>
+<style>
+  /*ボタン系*/
+  .btn_1 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+    width: 100%;
+    margin: auto;
+  }
+
+  .item {
+    text-align: center;
+  }
+
+  .item img {
+    width: 60%; /* アイコンをさらに大きくする */
+    height: auto;
+    border-radius: 10px;
+  }
+
+  .btn_text {
+    font-size: 12px; /* 文字を大きくする */
+    font-weight: bold;
+    margin-top: 5px; /* アイコンと文字の間隔を詰める */
+  }
+
+  p.btn_text {
+    color: black;
+  }
+
+  /*KVカルーセル*/
+  .mdi-circle::before {
+    color: #e52d8a;
+  }
+
+  section.widget__wrap.event__layout .html__wrap.fr-view,
+  section.widget__wrap.event__layout .html__wrap {
+    padding-top: 0px !important;
+  }
+</style>
+<div class="btn_1">
+  <div class="item">
+    <a href="https://main.d194addch7ev33.amplifyapp.com/timeschedule.html"
+      ><img
+        src="https://toyota-rx.eventos.tokyo/file/wysiwyg/1066/file-72dc1adf-7356-4fce-859e-c901fd448053.png"
+        alt="本日のスケジュール"
+        class="fr-fic fr-dii"
+    /></a>
+    <p class="btn_text">スケジュール</p>
+  </div>
+  <div class="item">
+    <a href="https://www.kaiyukan.com/info/ticket/kaiyukan/"
+      ><img
+        src="https://toyota-rx.eventos.tokyo/file/wysiwyg/1066/file-e23eb568-f08f-4a22-96bd-6c99a3b6e5bd.png"
+        alt="主催者P"
+        class="fr-fic fr-dii"
+    /></a>
+    <p class="btn_text">プログラム</p>
+  </div>
+  <div class="item">
+    <a href="https://ffsales-demo.eventos.tokyo/uri/favorite/660/6743/354827"
+      ><img
+        src="https://toyota-rx.eventos.tokyo/file/wysiwyg/1066/file-a56b71b2-c9c9-44d3-9150-4aa38859cec9.png"
+        alt="お気に入り"
+        class="fr-fic fr-dii"
+    /></a>
+    <p class="btn_text">待ち時間</p>
+  </div>
+</div>

@@ -1,0 +1,44 @@
+<!-- Toyota イベント詳細ページ -->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>イベント詳細</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; padding: 0; background: #fff; font-family: Arial, sans-serif; color: #333; }
+    .detail-container { max-width: 600px; margin: 0 auto; overflow: hidden; }
+    .detail-thumb img { width: 100%; display: block; }
+    .detail-body { padding: 16px; }
+    .detail-title { font-size: 1.4rem; margin: 0 0 12px; font-weight: bold; }
+    .detail-categories { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+    .detail-categories .badge { padding: 6px 12px; border: 1px solid #64b5f6; border-radius: 999px; background: #e3f2fd; font-size: 0.85rem; }
+    .detail-desc { font-size: 0.95rem; line-height: 1.6; margin-bottom: 16px; }
+    .detail-image { border: 1px solid #ccc; border-radius: 8px; overflow: hidden; margin-bottom: 16px; }
+    .detail-image img { width: 100%; display: block; }
+    .reserve-btn { display: block; width: 100%; text-align: center; padding: 12px 0; border: 1px solid #64b5f6; border-radius: 8px; background: #e3f2fd; font-size: 1rem; font-weight: bold; text-decoration: none; color: #1976d2; }
+  </style>
+</head>
+<body>
+  <div class="detail-container">
+    <!-- 大きめサムネイル -->
+    <div class="detail-body">
+      <!-- イベント名 -->
+      <!-- カテゴリバッジ -->
+      <div class="detail-categories">
+        <span class="badge">自動運転</span>
+        <span class="badge">EV</span>
+      </div>
+      <!-- 説明文 -->
+      <p class="detail-desc">説明文がここに入ります。説明文がここに入ります。説明文がここに入ります。説明文がここに入ります。説明文がここに入ります。説明文がここに入ります。</p>
+      <!-- 追加イメージ -->
+      <div class="detail-image">
+        <img src="https://toyota-rx.eventos.tokyo/file/wysiwyg/1066/file-3c621124-4f57-4f77-9e02-2f709f597c95.jpg" alt="関連イメージ">
+      </div>
+      <!-- チケット予約ボタン -->
+      <a href="#" class="reserve-btn">チケット予約はこちら</a>
+    </div>
+  </div>
+</body>
+</html>

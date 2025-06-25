@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>試乗プログラム</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 16px;
+      background: #fff;
+    }
+    h2 {
+      width: 100%;
+      font-size: 14px !important;
+      text-align: left !important;
+      margin: 0;
+      padding-bottom: 8px;
+      color: black !important;
+      font-weight: 600 !important;
+      border-bottom: 1px solid #333;
+      display: inline-block;
+    }
+    .program {
+      margin: 24px 0;
+    }
+    .program-list {
+      display: flex;
+      gap: 16px;
+    }
+    .program-item {
+      background: #eceff1;
+      width: 80px;
+      height: 80px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #333;
+      cursor: pointer;
+      user-select: none;
+    }
+    @media (max-width: 480px) {
+      .program-list {
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+      .program-item {
+        flex: 1 1 calc(50% - 8px);
+        height: 60px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h2>試乗プログラム</h2>
+  <div class="program">
+    <div class="program-list">
+      <div class="program-item">Day1</div>
+      <div class="program-item">Day2</div>
+      <div class="program-item">Day3</div>
+      <div class="program-item">Day4</div>
+    </div>
+  </div>
+</body>
+</html>
