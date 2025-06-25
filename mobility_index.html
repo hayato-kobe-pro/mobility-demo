@@ -78,7 +78,6 @@
     </div>
 
     <ul class="event-list">
-      <!-- 動的データ例（hrefは各自指定してください） -->
       <li>
         <a href="https://toyota-rx.eventos.tokyo/uri/booth/1009/14123/361705/318353" class="event-item" data-cat="autonomous">
           <img src="car.png" alt="自動運転デモ走行" class="thumbnail">
@@ -118,16 +117,15 @@
       const categoryChecks = document.querySelectorAll('.category-tags input[type="checkbox"]');
       const sortSelect = document.querySelector('.sort-filter');
       const list = document.querySelector('.event-list');
-      
+
       function filterAndSort() {
         const keyword = searchInput.value.trim().toLowerCase();
         const selectedCats = Array.from(categoryChecks)
           .filter(ch => ch.checked)
           .map(ch => ch.dataset.cat);
-        let items = Array.from(document.querySelectorAll('.event-item'));
 
         // フィルタ
-        items.forEach(item => {
+        Array.from(document.querySelectorAll('.event-item')).forEach(item => {
           const title = item.querySelector('.event-title').textContent.toLowerCase();
           const desc = item.querySelector('.event-desc').textContent.toLowerCase();
           const cats = item.dataset.cat.split(',');
@@ -139,9 +137,14 @@
         // ソート
         const visibleLi = Array.from(list.children).filter(li => li.style.display !== 'none');
         visibleLi.sort((a, b) => {
-          const waitA = parseInt(a.querySelector('.wait-time').textContent);
-          const waitB = parseInt(b.querySelector('.wait-time').textContent);
-          if (sortSelect.value === 'wait-asc') return waitA - waitB;
+          const getWait = li => {
+            const text = li.querySelector('.wait-time').textContent;
+            const m = text.match(/\d+/);
+            return m ? parseInt(m[0], 10) : 0;
+          };
+          const waitA = getWait(a);
+          const waitB = getWait(b);
+          if (sortSelect.value === 'wait-asc')  return waitA - waitB;
           if (sortSelect.value === 'wait-desc') return waitB - waitA;
           return 0;
         });

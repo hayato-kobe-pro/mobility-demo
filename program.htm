@@ -30,18 +30,23 @@
       gap: 16px;
     }
     .program-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       background: #eceff1;
       width: 80px;
       height: 80px;
       border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       font-size: 1rem;
       font-weight: 600;
       color: #333;
+      text-decoration: none; /* リンクの下線を消す */
       cursor: pointer;
       user-select: none;
+      transition: background 0.2s;
+    }
+    .program-item:hover {
+      background: #d5dde3;
     }
     @media (max-width: 480px) {
       .program-list {
@@ -59,10 +64,10 @@
   <h2>試乗プログラム</h2>
   <div class="program">
     <div class="program-list">
-      <div class="program-item">Day1</div>
-      <div class="program-item">Day2</div>
-      <div class="program-item">Day3</div>
-      <div class="program-item">Day4</div>
+      <a href="https://toyota-rx.eventos.tokyo/uri/ticket/1009/14123/361472" class="program-item">Day1</a>
+      <a href="#" class="program-item">Day2</a>
+      <a href="#" class="program-item">Day3</a>
+      <a href="#" class="program-item">Day4</a>
     </div>
   </div>
 </body>
