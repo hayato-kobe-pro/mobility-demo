@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>フード一覧</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { background-color: #fff; font-family: Arial, sans-serif; margin: 0; padding: 30px 20px 0; color: #333; }
+    .event-list-container { max-width: 1200px; margin: 0 auto; }
+    .controls { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; align-items: center; }
+
+    /* 検索バー */
+    .search-wrapper { flex: 1; min-width: 0; position: relative; }
+    .search-wrapper svg { position: absolute; top: 50%; left: 12px; transform: translateY(-50%); width: 20px; height: 20px; fill: #888; }
+    .search-bar { width: 100%; padding: 8px 12px 8px 40px; border: 1px solid #ccc; border-radius: 999px; background-color: #fafafa; font-size: 1.2rem !important; color: #333; }
+
+    /* カテゴリタグ */
+    .category-tags { display: flex; flex-wrap: wrap; gap: 8px; flex: 2; min-width: 0; }
+    .category-tags label { display: inline-flex; align-items: center; padding: 6px 12px; border: 1px solid #ccc; border-radius: 999px; background-color: #fff; cursor: pointer; font-size: 1.0rem; user-select: none; }
+    .category-tags input[type="checkbox"] { display: none; }
+    .category-tags input[type="checkbox"]:checked + label { background-color: #ffe0b2; border-color: #ff9800; }
+
+    /* 並び替え */
+    .sort-filter { padding: 8px 12px; border: 1px solid #ccc; border-radius: 4px; min-width: 180px; background-color: #fafafa; font-size: 1.0rem; }
+
+    /* イベントリスト */
+    .event-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr; gap: 20px; }
+    .event-list li { margin: 0; padding: 0; }
+    .event-item {
+      display: flex;
+      align-items: center;
+      width: 100%;        /* クリック範囲を全幅に */
+      background-color: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;     /* 全体をクリック可能に */
+    }
+    .thumbnail { width: 120px; height: 120px; object-fit: cover; flex-shrink: 0; }
+    .event-info { padding: 12px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+    .event-title { font-size: 1.3rem; margin: 0 0 8px; }
+    .event-desc { font-size: 1.0rem; margin: 0 0 12px; color: #555; line-height: 1.4; }
+    .wait-time { font-size: 0.9rem; font-weight: bold; color: #ff9800; border: 1px solid #ff9800; padding: 4px 8px; border-radius: 4px; background-color: #ffe0b2; text-align: center; }
+
+    /* モバイル対応 */
+    @media (max-width: 600px) {
+      .controls { flex-direction: column; align-items: stretch; }
+      .search-wrapper, .category-tags, .sort-filter { width: 100%; }
+      .thumbnail { width: 100px; height: 100px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="event-list-container">
+    <div class="controls">
+      <div class="search-wrapper">
+        <svg viewBox="0 0 24 24"><path d="M15.5 14h-..."/></svg>
+        <input type="text" class="search-bar" placeholder="フードを検索">
+      </div>
+      <div class="category-tags">
+        <input type="checkbox" id="cat-japanese" data-cat="japanese"><label for="cat-japanese"># 和食</label>
+        <input type="checkbox" id="cat-western" data-cat="western"><label for="cat-western"># 洋食</label>
+        <input type="checkbox" id="cat-sweets" data-cat="sweets"><label for="cat-sweets"># スイーツ</label>
+        <input type="checkbox" id="cat-drinks" data-cat="drinks"><label for="cat-drinks"># ドリンク</label>
+        <input type="checkbox" id="cat-vegetarian" data-cat="vegetarian"><label for="cat-vegetarian"># ベジタリアン</label>
+        <input type="checkbox" id="cat-snack" data-cat="snack"><label for="cat-snack"># スナック</label>
+      </div>
+      <select class="sort-filter">
+        <option value="">並び替え</option>
+        <option value="wait-asc">待ち時間が短い順</option>
+        <option value="wait-desc">待ち時間が長い順</option>
+      </select>
+    </div>
+
+    <ul class="event-list">
+      <li>
+        <a href="#" class="event-item" data-cat="japanese">
+          <img src="sushi.png" alt="寿司握り体験" class="thumbnail">
+          <div class="event-info">
+            <h3 class="event-title">寿司握り体験</h3>
+            <p class="event-desc">職人から寿司の握り方を学べる体験コーナー。</p>
+            <span class="wait-time">待ち時間: 20分</span>
+          </div>
+        </a>
+      </li>
+      <li>
+        <a href="#" class="event-item" data-cat="western">
+          <img src="ramen.png" alt="ラーメン試食" class="thumbnail">
+          <div class="event-info">
+            <h3 class="event-title">ラーメン試食</h3>
+            <p class="event-desc">こだわりのスープと麺を楽しむ試食コーナー。</p>
+            <span class="wait-time">待ち時間: 15分</span>
+          </div>
+        </a>
+      </li>
+      <li>
+        <a href="#" class="event-item" data-cat="sweets">
+          <img src="./crape.png" alt="クレープ体験" class="thumbnail">
+          <div class="event-info">
+            <h3 class="event-title">クレープ体験</h3>
+            <p class="event-desc">自分でトッピングを選んで作るクレープ体験。</p>
+            <span class="wait-time">待ち時間: 10分</span>
+          </div>
+        </a>
+      </li>
+      <li>
+        <a href="#" class="event-item" data-cat="vegetarian">
+          <img src="./sarada.png" alt="グリーンサラダ" class="thumbnail">
+          <div class="event-info">
+            <h3 class="event-title">グリーンサラダ</h3>
+            <p class="event-desc">新鮮野菜を使ったヘルシーサラダ。</p>
+            <span class="wait-time">待ち時間: 5分</span>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const searchInput = document.querySelector('.search-bar');
+      const categoryChecks = document.querySelectorAll('.category-tags input[type="checkbox"]');
+      const sortSelect = document.querySelector('.sort-filter');
+      const list = document.querySelector('.event-list');
+
+      function filterAndSort() {
+        const keyword = searchInput.value.trim().toLowerCase();
+        const selectedCats = Array.from(categoryChecks)
+          .filter(ch => ch.checked)
+          .map(ch => ch.dataset.cat);
+
+        // フィルタ
+        Array.from(document.querySelectorAll('.event-item')).forEach(item => {
+          const title = item.querySelector('.event-title').textContent.toLowerCase();
+          const desc = item.querySelector('.event-desc').textContent.toLowerCase();
+          const cats = item.dataset.cat.split(',');
+          const matchesKeyword = title.includes(keyword) || desc.includes(keyword);
+          const matchesCat = selectedCats.length === 0 || selectedCats.some(c => cats.includes(c));
+          item.parentElement.style.display = (matchesKeyword && matchesCat) ? '' : 'none';
+        });
+
+        // ソート
+        const visibleLi = Array.from(list.children).filter(li => li.style.display !== 'none');
+        visibleLi.sort((a, b) => {
+          const getWait = li => {
+            const text = li.querySelector('.wait-time').textContent;
+            const m = text.match(/\d+/);
+            return m ? parseInt(m[0], 10) : 0;
+          };
+          const waitA = getWait(a);
+          const waitB = getWait(b);
+          if (sortSelect.value === 'wait-asc')  return waitA - waitB;
+          if (sortSelect.value === 'wait-desc') return waitB - waitA;
+          return 0;
+        });
+        visibleLi.forEach(li => list.appendChild(li));
+      }
+
+      searchInput.addEventListener('input', filterAndSort);
+      categoryChecks.forEach(ch => ch.addEventListener('change', filterAndSort));
+      sortSelect.addEventListener('change', filterAndSort);
+    });
+  </script>
+</body>
+</html>
