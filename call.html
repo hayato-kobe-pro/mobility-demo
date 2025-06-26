@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>マイチケット—2パターン（SP対応）</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      background: #f5f5f5;
+      font-family: sans-serif;
+    }
+
+    /* カードを並べるラッパー */
+    .ticket-list {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .ticket-card {
+      width: 280px;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .thumbnail-wrapper {
+      position: relative;
+      width: 100%;
+      height: 160px;
+      overflow: hidden;
+    }
+
+    .thumbnail {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .status-badge {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      color: #fff;
+      padding: 4px 8px;
+      font-size: 12px;
+      border-radius: 12px;
+      white-space: nowrap;
+    }
+    .status-badge.waiting {
+      background: #2196f3; /* 青ベース */
+    }
+    .status-badge.available {
+      background: #4caf50;
+    }
+
+    .ticket-body {
+      padding: 12px;
+    }
+
+    .ticket-title {
+      margin: 0 0 8px;
+      font-size: 16px;
+      color: #333;
+      line-height: 1.4;
+    }
+
+    .ticket-info {
+      margin: 4px 0;
+      font-size: 14px;
+      color: #1976d2; /* 強調用ブルー */
+    }
+    .ticket-info strong {
+      font-weight: 600;
+    }
+
+    /* SP版（幅600px以下）: 縦並び */
+    @media (max-width: 600px) {
+      .ticket-list {
+        flex-direction: column;
+        align-items: center;
+      }
+      .ticket-card {
+        width: 90%;
+        max-width: 340px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="ticket-list">
+
+    <!-- 呼び出し前パターン -->
+    <div class="ticket-card">
+      <div class="thumbnail-wrapper">
+        <img src="./call.png" alt="チケットサムネイル" class="thumbnail">
+        <span class="status-badge waiting">呼び出し前</span>
+      </div>
+      <div class="ticket-body">
+        <h3 class="ticket-title">Aプログラム 12:00～（時間帯）</h3>
+        <p class="ticket-info">お呼び出しまであと <strong>8名</strong></p>
+        <p class="ticket-info">呼び出し目安: <strong>約10分後</strong></p>
+      </div>
+    </div>
+
+    <!-- 利用可能パターン -->
+    <div class="ticket-card">
+      <div class="thumbnail-wrapper">
+        <img src="./call.png" alt="チケットサムネイル" class="thumbnail">
+        <span class="status-badge available">利用可能</span>
+      </div>
+      <div class="ticket-body">
+        <h3 class="ticket-title">Aプログラム 12:00～（時間帯）</h3>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
