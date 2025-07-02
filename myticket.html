@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>マイチケット</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      background: #f5f5f5;
+      font-family: sans-serif;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 24px;
+      font-size: 24px;
+    }
+
+    /* コントロール群 */
+    .controls {
+      max-width: 800px;
+      margin: 0 auto 24px;
+    }
+    .day-buttons {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .day-button {
+      flex: 1;
+      padding: 10px 0;
+      background: #e0e0e0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      text-align: center;
+    }
+    .day-button.active {
+      background: #1976d2;
+      color: #fff;
+    }
+    .filter-select {
+      margin-bottom: 24px;
+    }
+    .filter-select select {
+      padding: 8px;
+      font-size: 14px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      cursor: pointer;
+    }
+
+    /* チケットリスト */
+    .ticket-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      align-items: center;
+    }
+
+    /* 横長カード */
+    .ticket-card {
+      display: flex;
+      width: 100%;
+      max-width: 800px;
+      background: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    /* サムネイル */
+    .thumbnail-wrapper {
+      flex: 0 0 40%;
+      aspect-ratio: 16/9;
+      position: relative;
+      overflow: hidden;
+    }
+    .thumbnail-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    /* ライフサイクルバッジ */
+    .thumbnail-wrapper .lifecycle-badge {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      padding: 4px 8px;
+      border-radius: 12px;
+      color: #fff;
+      font-size: 20px;
+      white-space: nowrap;
+      width: 10rem;
+      text-align: center;
+    }
+    .lifecycle-badge[data-lc="受付可能"] {
+      background: #9ACD32;
+    }
+    .lifecycle-badge[data-lc="呼び出し前"] {
+      background: #939393;
+    }
+    .lifecycle-badge[data-lc="有効期間切れ"] {
+      background: #d32f2f;
+    }
+
+    /* 本文 */
+    .ticket-body {
+      flex: 1;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    /* 種別バッジ */
+    .ticket-body .status-badge {
+      display: inline-block;
+      margin-bottom: 8px;
+      padding: 2px 6px;
+      border-radius: 12px;
+      color: #fff;
+      font-size: 12px;
+      white-space: nowrap;
+      width: 4rem;
+      text-align: center;
+    }
+    .status-badge[data-status="先着"] {
+      background: #1976d2;
+    }
+    .status-badge[data-status="呼び出し"] {
+      background: #ff9800;
+    }
+
+    .ticket-title {
+      margin: 0 0 8px;
+      color: #333;
+      font-weight: bold;
+      font-size: 18px;
+      line-height: 1.4;
+    }
+    /* 受付時間：時間帯のみ */
+    .ticket-date {
+      font-size: 14px;
+      color: #1976d2;
+    }
+    .ticket-date::before {
+      content: "受付時間：";
+    }
+    /* 呼び出しまで8名を強調 */
+    .ticket-info {
+      margin-top: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      color: #2196f3;
+      display: flex;
+      align-items: center;
+    }
+    .ticket-info img.info-icon {
+      width: 20px;
+      height: 20px;
+      margin-right: 8px;
+    }
+
+    /* SP: 縦並び */
+    @media (max-width: 600px) {
+      .ticket-card {
+        flex-direction: column;
+      }
+      .thumbnail-wrapper {
+        width: 100%;
+        aspect-ratio: auto;
+        height: 160px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>マイチケット</h1>
+
+  <div class="controls">
+    <div class="day-buttons">
+      <button class="day-button active" data-day="Day1">Day1</button>
+      <button class="day-button" data-day="Day2">Day2</button>
+      <button class="day-button" data-day="Day3">Day3</button>
+      <button class="day-button" data-day="Day4">Day4</button>
+    </div>
+    <div class="filter-select">
+      <select id="statusFilter">
+        <option value="すべて">すべて</option>
+        <option value="先着">先着</option>
+        <option value="呼び出し">呼び出し</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="ticket-list" id="ticketList">
+    <!-- 先着チケット -->
+    <div class="ticket-card" data-day="Day1" data-status="先着" data-lifecycle="受付可能">
+      <div class="thumbnail-wrapper">
+        <img src="./car1.png" alt="サムネ">
+        <span class="lifecycle-badge" data-lc="受付可能">受付可能</span>
+      </div>
+      <div class="ticket-body">
+        <span class="status-badge" data-status="先着">先着</span>
+        <div class="ticket-title">Aプログラム 12:00～</div>
+        <div class="ticket-date">12:00～</div>
+      </div>
+    </div>
+
+    <!-- 呼び出しチケット -->
+    <div class="ticket-card" data-day="Day1" data-status="呼び出し" data-lifecycle="呼び出し前">
+      <div class="thumbnail-wrapper">
+        <img src="./car2.png" alt="サムネ">
+        <span class="lifecycle-badge" data-lc="呼び出し前">呼び出し前</span>
+      </div>
+      <div class="ticket-body">
+        <span class="status-badge" data-status="呼び出し">呼び出し</span>
+        <div class="ticket-title">Bプログラム 14:00～</div>
+        <div class="ticket-info">
+          <img src="./time.png" alt="時計アイコン" class="info-icon">
+          呼び出しまで <strong>8名</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ticket-card" data-day="Day1" data-status="先着" data-lifecycle="受付可能">
+    <div class="thumbnail-wrapper">
+      <img src="./car.png" alt="サムネ">
+      <span class="lifecycle-badge" data-lc="受付可能">受付可能</span>
+    </div>
+    <div class="ticket-body">
+      <span class="status-badge" data-status="先着">先着</span>
+      <div class="ticket-title">Aプログラム 18:00～</div>
+      <div class="ticket-date">18:00～</div>
+    </div>
+  </div>
+
+  <script>
+    const dayButtons   = document.querySelectorAll('.day-button');
+    const statusFilter = document.getElementById('statusFilter');
+    const ticketList   = document.getElementById('ticketList');
+    let selectedDay    = 'Day1';
+    let selectedStatus = 'すべて';
+
+    dayButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        dayButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        selectedDay = btn.dataset.day;
+        filterTickets();
+      });
+    });
+
+    statusFilter.addEventListener('change', () => {
+      selectedStatus = statusFilter.value;
+      filterTickets();
+    });
+
+    function filterTickets() {
+      ticketList.querySelectorAll('.ticket-card').forEach(card => {
+        const okDay    = card.dataset.day === selectedDay;
+        const okStatus = selectedStatus === 'すべて' || card.dataset.status === selectedStatus;
+        card.style.display = (okDay && okStatus) ? 'flex' : 'none';
+      });
+    }
+
+    filterTickets();
+  </script>
+</body>
+</html>
