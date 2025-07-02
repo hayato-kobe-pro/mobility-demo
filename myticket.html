@@ -29,13 +29,14 @@
     }
     .day-button {
       flex: 1;
-      padding: 10px 0;
+      padding: 12px 0;
       background: #e0e0e0;
       border: none;
       border-radius: 4px;
       cursor: pointer;
       font-weight: bold;
       text-align: center;
+      font-size: 18px;
     }
     .day-button.active {
       background: #1976d2;
@@ -45,11 +46,12 @@
       margin-bottom: 24px;
     }
     .filter-select select {
-      padding: 8px;
-      font-size: 14px;
+      padding: 10px 12px;
+      font-size: 16px;
       border-radius: 4px;
       border: 1px solid #ccc;
       cursor: pointer;
+      width: 200px;
     }
 
     /* チケットリスト */
@@ -89,10 +91,10 @@
       position: absolute;
       top: 8px;
       left: 8px;
-      padding: 4px 8px;
+      padding: 6px 12px;
       border-radius: 12px;
       color: #fff;
-      font-size: 20px;
+      font-size: 16px;
       white-space: nowrap;
       width: 10rem;
       text-align: center;
@@ -119,10 +121,10 @@
     .ticket-body .status-badge {
       display: inline-block;
       margin-bottom: 8px;
-      padding: 2px 6px;
+      padding: 4px 8px;
       border-radius: 12px;
       color: #fff;
-      font-size: 12px;
+      font-size: 14px;
       white-space: nowrap;
       width: 4rem;
       text-align: center;
@@ -152,15 +154,15 @@
     /* 呼び出しまで8名を強調 */
     .ticket-info {
       margin-top: 12px;
-      font-size: 16px;
+      font-size: 18px;
       font-weight: 600;
       color: #2196f3;
       display: flex;
       align-items: center;
     }
     .ticket-info img.info-icon {
-      width: 20px;
-      height: 20px;
+      width: 24px;
+      height: 24px;
       margin-right: 8px;
     }
 
@@ -173,6 +175,9 @@
         width: 100%;
         aspect-ratio: auto;
         height: 160px;
+      }
+      .filter-select select {
+        width: 100%;
       }
     }
   </style>
@@ -227,18 +232,20 @@
       </div>
     </div>
 
+    <!-- 追加サンプル -->
     <div class="ticket-card" data-day="Day1" data-status="先着" data-lifecycle="受付可能">
-        <div class="thumbnail-wrapper">
-          <img src="./car.png" alt="サムネ">
-          <span class="lifecycle-badge" data-lc="受付可能">受付可能</span>
-        </div>
-        <div class="ticket-body">
-          <span class="status-badge" data-status="先着">先着</span>
-          <div class="ticket-title">Cプログラム 18:00～</div>
-          <div class="ticket-date">18:00～</div>
-        </div>
+      <div class="thumbnail-wrapper">
+        <img src="./car.png" alt="サムネ">
+        <span class="lifecycle-badge" data-lc="受付可能">受付可能</span>
       </div>
+      <div class="ticket-body">
+        <span class="status-badge" data-status="先着">先着</span>
+        <div class="ticket-title">Cプログラム 18:00～</div>
+        <div class="ticket-date">18:00～</div>
+      </div>
+    </div>
   </div>
+
   <script>
     const dayButtons   = document.querySelectorAll('.day-button');
     const statusFilter = document.getElementById('statusFilter');
@@ -268,6 +275,7 @@
       });
     }
 
+    // 初期フィルタ適用
     filterTickets();
   </script>
 </body>
